@@ -4,13 +4,39 @@ body{
 header, main, footer{
     min-width: 855px;
 }
-header.container, main.container, footer.container{
-    max-width: 855px;
-    margin: auto;
-}
 header{
     background: white;
+    overflow: auto;
+}
+header h1{
+    float: left;
+    width: 570px;
+}
+header nav{
+    float: right;
+    width: 285px;
 }
 main{
     background: white;
+    overflow: auto;
+}
+.maincontainer{
+    float: left;
+    width: 570px;
+}
+.lightbulb{
+    float: right;
+    width: 285px;
+}
+footer{
+    background: #f9e933;
+    overflow: auto;
+}
+.contact{
+    float: left;
+    width: 570px;
+}
+.sitemap{
+    float: right;
+    width: 285px;
 }
