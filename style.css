@@ -1,8 +1,28 @@
 body{
     background: #f9e933;
 }
+h1{
+    font: 300% italic serif;
+}
+h2{
+    padding-bottom: 10px;
+    font: 200% bold;
+}
+a{
+    color: red;
+    text-decoration: none;
+    font: 110% bold;
+}
+a:hover{
+    text-decoration: underline;
+}
+ol{
+    padding-left: 20px;
+    list-style-type: circle;
+}
 header, main, footer{
     min-width: 855px;
+    padding: 15px;
 }
 header{
     background: white;
@@ -24,6 +44,11 @@ main{
     float: left;
     width: 570px;
 }
+.maincontainer h3{
+    font: 120% bold;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
 .lightbulb{
     float: right;
     width: 285px;
@@ -36,7 +61,15 @@ footer{
     float: left;
     width: 570px;
 }
+.contact h5{
+    padding-bottom: 20px;
+    font: 120% bold;
+}
 .sitemap{
     float: right;
     width: 285px;
+}
+.sitemap h5{
+    padding-bottom: 20px;
+    font: 120% bold;
 }
