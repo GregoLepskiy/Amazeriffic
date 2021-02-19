@@ -19,6 +19,7 @@ a:hover{
 ol{
     padding-left: 20px;
     list-style-type: circle;
+    padding-bottom: 10px;
 }
 header, main, footer{
     min-width: 855px;
@@ -43,6 +44,7 @@ main{
 .maincontainer{
     float: left;
     width: 570px;
+    padding-bottom: 10px;
 }
 .maincontainer h3{
     font: 120% bold;
@@ -60,6 +62,12 @@ main{
 }
 .tabs a span.active{
     background: #eee;
+}
+.content{
+    display: inline-block;
+    width: 338px;
+    background: #eee;
+    padding: 10px;
 }
 .lightbulb{
     float: right;
