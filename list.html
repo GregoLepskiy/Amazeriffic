@@ -4,6 +4,8 @@
         <title>Amazeriffic</title>
         <link rel="stylesheet" type="text/css" href="reset.css">
         <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="app.js"></script>
     </head>
     <body>
         <header>
@@ -18,20 +20,13 @@
         </header>
         <main>
             <div class="maincontainer">
-                <h2>Amazeriffic изменит вашу жизнь</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-                <h3>Почему вам нужен Amazeriffic?</h3>
-                <ol type="circle">
-                    <li>Он легко впишется в вашу жизнь</li>
-                    <li>Он классный</li>
-                    <li>Он перевернет ваш мир</li>
-                </ol>
-            </div>
-            <div class="lightbulb">
-                <img src="lightbulb.png" alt="Изображение лампочки">
+                <div class="tabs">
+                    <a href=""><span class="active">Новые</span></a>
+                    <a href=""><span>Старые</span></a>
+                    <a href=""><span>Добавить</span></a>
+                </div>
+                <div class="content">
+                </div>
             </div>
         </main>
         <footer>
@@ -46,7 +41,7 @@
                     <h5>Карта сайта</h5>
                     <ul>
                         <li>
-                            <a href="#">Домой</a>
+                            <a href="index.html">Домой</a>
                         </li>
                         <li>
                             <a href="#">О нас</a>
@@ -67,6 +62,5 @@
                 </nav>
             </div>
         </footer>
-        <script src="app.js"></script>
     </body>
 </html>
