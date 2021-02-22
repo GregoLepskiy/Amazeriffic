@@ -1,3 +1,27 @@
+var organizeByTag = function(toDoObjects){
+	console.log("organizeByTag called");
+	var tags = [];
+	toDoObjects.forEach(function (toDo){
+		toDo.tags.forEach(function (tag){
+			if(tags.indexOf(tag) === -1){
+				tags.push(tag);
+			}
+		});
+	});
+	console.log(tags);
+	var tagObjects = tags.map(function (tag){
+		var toDosWithTag = [];
+		toDoObjects.forEach(function (toDo){
+			if(toDo.tags.indexOf(tag) !== -1){
+				toDosWithTag.push(toDo.description);
+			}
+		});
+		return { "name":tag, "toDos":toDosWithTag };
+	});
+	console.log(tagObjects);
+	return tagObjects;
+};
+
 var main = function (toDoObjects) {
 	"use strict";
 
@@ -11,8 +35,7 @@ var main = function (toDoObjects) {
 		"Подготовиться к лекции в понедельник", 
 		"Обновить несколько новых задач", 
 		"Купить продукты"
-		];*/
-		
+		];		*/
 
 	$("document").ready( function(){
 		$(".tabs a span").toArray().forEach(function (element) { 
@@ -39,51 +62,36 @@ var main = function (toDoObjects) {
 				else if ($element.parent().is(":nth-child(3)")){
 					console.log("Tags");
 					var organizedByTag = organizeByTag(toDoObjects);
-					/*[
-						{
-						"name": "покупки",
-						"toDos": ["Купить продукты"]
-						},
-						{
-						"name": "рутина",
-						"toDos": ["Купить продукты", "Вывести Грейси на прогулку в парк"]
-						},
-						{
-						"name": "писательство",
-						"toDos": ["Сделать несколько новых задач", "Закончить писать книгу"]
-						},
-						{
-						"name": "работа",
-						"toDos": ["Сделать несколько новых задач", "Подготовиться к лекции в понедельник","Ответить на электронные письма", "Закончить писать книгу"]
-						},
-						{
-						"name": " преподавание",
-						"toDos": ["Подготовиться к лекции в понедельник"]
-						},
-						{
-						"name": "питомцы",
-						"toDos": ["Вывести Грейси на прогулку в парк "]
-						}
-						]
-						organizedByTag.forEach(function (tag){
-							var $tagName = $("<h3>").text(tag.name),
-							$content = $("<ul>");
-							tag.toDos.forEach(function (description){
-								var $li = $("<li>").text(description);
-								$content.append($li);
-							});
-							$("main.content").append($tagName);
-							$("main.content").append($content);
-						});*/
+					organizedByTag.forEach(function (tag) { 
+						var $tagName = $("<h3>").text(tag.name), 
+						$content = $("<ul>"); 
+						tag.toDos.forEach(function (description) { 
+							var $li = $("<li>").text(description); 
+							$content.append($li);
+						});
+						$("main .content").append($tagName); 
+						$("main .content").append($content);
+					});
 				}
 				else if ($element.parent().is(":nth-child(4)")) { 
-					var $input = $("<input>"),
+					var $input = $("<input>").addClass("description"),
+					$inputLabel = $("<p>").text("Новая задача: "),
+					$tagInput = $("<input>").addClass("tags"),
+					$tagLabel = $("<p>").text("Теги: "),
 					$button = $("<button>").text("+");
 					$button.on("click", function (){
-						toDos.push($input.val());
+						var description = $input.val(),
+						tags = $tagInput.val().split(",");
+						toDoObjects.push({"description":description, "tags":tags});
+						toDos = toDoObjects.map(function (toDo){
+							return toDo.description;
+						});
 						$input.val("");
+						$tagInput.val("");
 					});
-					$content = $("<div>").append($input).append($button);
+					$(".content").append($("<div>").append($inputLabel).append($input)
+						.append($tagLabel).append($tagInput)
+						.append($button));
 				}
 				return false;
 			})
@@ -91,9 +99,10 @@ var main = function (toDoObjects) {
 		$(".tabs a:first-child span").trigger("click");
 	})
 };
+//main(["1",2,3,4]);
 $(document).ready(function () {
 	console.log("document ready");
-	$.getJSON("todos.json", function (toDoObjects) {
+	$.getJSON("todos.json", function(toDoObjects) {
 	// вызов функции main с аргументом в виде объекта toDoObjects
 		console.log(toDoObjects);
 		main(toDoObjects);
