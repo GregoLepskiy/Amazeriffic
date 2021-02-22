@@ -79,19 +79,36 @@ var main = function (toDoObjects) {
 					$tagInput = $("<input>").addClass("tags"),
 					$tagLabel = $("<p>").text("Теги: "),
 					$button = $("<button>").text("+");
-					$button.on("click", function (){
-						var description = $input.val(),
-						tags = $tagInput.val().split(",");
-						toDoObjects.push({"description":description, "tags":tags});
-						toDos = toDoObjects.map(function (toDo){
-							return toDo.description;
-						});
-						$input.val("");
-						$tagInput.val("");
-					});
 					$(".content").append($("<div>").append($inputLabel).append($input)
 						.append($tagLabel).append($tagInput)
 						.append($button));
+					function btnfunc() {
+						var description = $input.val(),
+							tags = $tagInput.val().split(","),
+							// создаем новый элемент списка задач
+							newToDo = {"description":description, "tags":tags};
+						$.post("todos", newToDo, function(result) {
+							console.log(result);
+							// нужно отправить новый объект на клиент
+							// после получения ответа сервера
+							toDoObjects.push(newToDo);
+							// обновляем toDos
+							toDos = toDoObjects.map(function (toDo) {
+								return toDo.description;
+							});
+							$input.val("");
+							$tagInput.val("");
+							$(".tabs a:first-child span").trigger("click");
+						});
+					}
+					$button.on("click", function() {
+						btnfunc();
+					});
+					$('.tags').on('keydown',function(e){
+						if (e.which === 13) {
+							btnfunc();
+						}
+					});
 				}
 				return false;
 			})
