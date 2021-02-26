@@ -41,6 +41,11 @@ main{
     background: white;
     overflow: auto;
 }
+
+main a{
+    font: 90% bold;
+    margin-left: 5px;
+}
 .maincontainer{
     float: left;
     width: 570px;
@@ -65,9 +70,10 @@ main{
 }
 .content{
     display: inline-block;
-    width: 462px;
+    width: 465px;
     background: #eee;
     padding: 10px;
+    margin-left: 5px;
 }
 .lightbulb{
     float: right;
