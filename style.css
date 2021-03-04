@@ -31,11 +31,11 @@ header{
 }
 header h1{
     float: left;
-    width: 570px;
+    width: 550px;
 }
 header nav{
     float: right;
-    width: 285px;
+    width: 305px;
 }
 main{
     background: white;
