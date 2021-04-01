@@ -28,22 +28,10 @@ var main = function (toDoObjects) {
 	var toDos = toDoObjects.map(function (toDo){
 		return toDo.description;
 	});
-	/*var toDos = [
-		"Закончить писать эту книгу",
-		"Вывести Грейси на прогулку в парк", 
-		"Ответить на электронные письма", 
-		"Подготовиться к лекции в понедельник", 
-		"Обновить несколько новых задач", 
-		"Купить продукты"
-		];		*/
 
 	$("document").ready( function(){
 		$(".tabs a span").toArray().forEach(function (element) { 
-			// создаем обработчик щелчков для этого элемента 
 			$(element).on("click", function () {
-				// поскольку мы используем версию элемента jQuery,
-				// нужно создать временную переменную,
-				// чтобы избежать постоянного обновления
 				var $element = $(element);
 				$(".tabs a span").removeClass("active"); 
 				$(element).addClass("active");
@@ -119,11 +107,9 @@ var main = function (toDoObjects) {
 		$(".tabs a:first-child span").trigger("click");
 	})
 };
-//main(["1",2,3,4]);
 $(document).ready(function () {
 	console.log("document ready");
 	$.getJSON("todos.json", function(toDoObjects) {
-	// вызов функции main с аргументом в виде объекта toDoObjects
 		console.log(toDoObjects);
 		main(toDoObjects);
 	});
