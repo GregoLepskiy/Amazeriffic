@@ -82,12 +82,32 @@ var main = function (toDoObjects) {
 					$button.on("click", function (){
 						var description = $input.val(),
 						tags = $tagInput.val().split(",");
-						toDoObjects.push({"description":description, "tags":tags});
-						toDos = toDoObjects.map(function (toDo){
-							return toDo.description;
-						});
-						$input.val("");
-						$tagInput.val("");
+						if (description !== "" && description.trim().length > 0) {
+							if ($tagInput.val() !== "" && ($tagInput.val()).trim().length > 0) {
+								toDoObjects.push({"description":description, "tags":tags});
+								toDos = toDoObjects.map(function (toDo){
+									return toDo.description;
+								});
+								$input.val("");
+								$tagInput.val("");
+							}
+						}
+					});
+					$tagInput.on("keypress", function (event) {
+						if (event.keyCode === 13){
+							var description = $input.val(),
+							tags = $tagInput.val().split(",");
+							if (description !== "" && description.trim().length > 0) {
+								if ($tagInput.val() !== "" && ($tagInput.val()).trim().length > 0) {
+									toDoObjects.push({"description":description, "tags":tags});
+									toDos = toDoObjects.map(function (toDo){
+										return toDo.description;
+									});
+									$input.val("");
+									$tagInput.val("");
+								}
+							}
+						}
 					});
 					$(".content").append($("<div>").append($inputLabel).append($input)
 						.append($tagLabel).append($tagInput)
