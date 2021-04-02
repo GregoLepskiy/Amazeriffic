@@ -33,7 +33,7 @@ var liaWithDeleteOnClick = function (todo) {
 			"url" : "todos/" + todo._id,
 			"type" : "DELETE"
 		}).done(function (response) {
-			$(".tabs a:first-child span").trigger("click");
+			$(".tabs a:nth-child(2) span").trigger("click");
 		}).fail(function (err) {
 			console.log("error on delete 'todo'");
 		});
