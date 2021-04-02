@@ -28,6 +28,15 @@ var main = function() {
                 $content.append($input);
                 $content.append($button);
                 $("main .content").append($content);
+                
+                $(".login").on("keydown", function (e) {
+                    var reg = /[а-яё]/i;
+                    if (reg.test(this.val())) {
+                        e.preventDefault();
+                        alert("Введите латинские символы");
+                        return false;
+                    }
+                });
 
                 function butfunc() {
                     var login = $input.val(),

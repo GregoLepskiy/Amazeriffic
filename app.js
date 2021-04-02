@@ -185,6 +185,21 @@ var main = function () {
 				return false;
 			});
 		});
+		$(".suicide_but").on("click", function () {
+			var pathname = window.location.pathname.split('/');
+			if(pathname[1] === 'user'){
+				$.ajax({
+					url: pathname[2],
+					type: "DELETE"
+				}).done(function (response) {
+				}).fail(function (err) {
+					console.log("error on delete 'user': " + pathname[2]);
+				});
+				//window.open("http://localhost:3000/admin.html", "_self");
+			} else {
+				alert("Чтобы удалиться, нужно войти в систему");
+			}
+		});
 		$(".tabs a:first span").trigger("click");
 	});
 };
