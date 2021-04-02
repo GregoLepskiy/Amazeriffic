@@ -69,6 +69,19 @@ main{
     background: #eee;
     padding: 10px;
 }
+
+main .content li {
+    width: 80%;
+    height: auto;
+}
+
+main .content a {
+    float: right;
+    width: 49%;
+    margin-right: 0px;
+    font-size: 14px;
+}
+
 .lightbulb{
     float: right;
     width: 285px;

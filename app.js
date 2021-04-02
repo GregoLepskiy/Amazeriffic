@@ -68,15 +68,12 @@ var liaWithEditOnClick = function (todo) {
 
 var main = function (toDoObjects) {
 	"use strict";
-	var toDos, tabs;
-	toDos = toDoObjects.map(function (toDo){
-		return toDo.description;
-	});
+	var tabs;
 	tabs = [];
 	tabs.push({
 		"name" : "Новые",
 		"content" : function (callback) {
-			$.get("todos.json", function (toDoObjects) {
+			$.getJSON("todos.json", function (toDoObjects) {
 				var $content;
 				$content = $("<ul>");
 				for (var i = toDoObjects.length-1; i > -1; i--) { 
@@ -91,7 +88,7 @@ var main = function (toDoObjects) {
 	tabs.push({
 		"name" : "Старые",
 		"content" : function (callback) {
-			$.get("todos.json", function (toDoObjects) {
+			$.getJSON("todos.json", function (toDoObjects) {
 				var $content;
 				$content = $("<ul>");
 				toDoObjects.forEach(function (todo) {
@@ -107,18 +104,18 @@ var main = function (toDoObjects) {
 	tabs.push({
 		"name" : "Теги",
 		"content" : function (callback) {
-			$.get("todos.json", function (toDoObjects) {
-				var $content = $("");
-				console.log("Tags");
-				var organizedByTag = organizeByTag(toDoObjects);
+			$.getJSON("todos.json", function (toDoObjects) {
+				var organizedByTag = organizeByTag(toDoObjects),
+					$content;
 				organizedByTag.forEach(function (tag) { 
-					$content.append($("<h3>").text(tag.name)); 
-					$content.append($("<ul>")); 
+					var $tagname = $("<h3>").text(tag.name); 
+					$content = $("<ul>"); 
 					tag.toDos.forEach(function (description) { 
 						var $li = $("<li>").text(description); 
 						$content.append($li);
 					});
-					$content.append($("</ul>"));
+					$("main .content").append($tagname);
+					$("main .content").append($content);
 				});
 				callback(null, $content);
 			}).fail(function (jqXHR, textStatus, error) {
@@ -128,21 +125,25 @@ var main = function (toDoObjects) {
 	});
 	tabs.push({
 		"name" : "Добавить",
-		"content" : function (callback) {
-			$.get("todos.json", function (toDoObjects){
-				var $content = $(""),
+		"content" : function () {
+			$.getJSON("todos.json", function (toDoObjects){
+				var $content = $("<ul>"),
 					$input = $("<input>").addClass("description"),
 					$inputLabel = $("<p>").text("Новая задача: "),
 					$tagInput = $("<input>").addClass("tags"),
 					$tagLabel = $("<p>").text("Теги: "),
 					$button = $("<button>").text("+");
-				$content.append($("<div>").append($inputLabel).append($input)
-					.append($tagLabel).append($tagInput)
-					.append($button));
+
+				$content.append($inputLabel);
+				$content.append($input);
+				$content.append($tagLabel);
+				$content.append($tagInput);
+				$content.append($button);
+				$("main .content").append($content);
 				function butfunc() {
 					var description = $input.val(),
-					tags = $tagInput.val().split(","),
-					newToDo = ({"description":description, "tags":tags});
+						tags = $tagInput.val().split(","),
+						newToDo = ({"description":description, "tags":tags});
 					if (description !== "" && description.trim().length > 0) {
 						if ($tagInput.val() !== "" && ($tagInput.val()).trim().length > 0) {
 							$.post("todos", newToDo, function (result) {
@@ -161,9 +162,6 @@ var main = function (toDoObjects) {
 						butfunc();
 					}
 				});
-				callback(null, $content);
-			}).fail(function (jqXHR, textStatus, error) {
-				callback(error, null);
 			});
 		}
 	});
@@ -187,10 +185,10 @@ var main = function (toDoObjects) {
 				return false;
 			});
 		});
+		$(".tabs a:first span").trigger("click");
 	});
 };
 $("document").ready(function () {
-	console.log("document ready");
 	$.getJSON("todos.json", function(toDoObjects) {
 		console.log(toDoObjects);
 		main(toDoObjects);
