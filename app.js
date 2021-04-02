@@ -67,12 +67,19 @@ var main = function (toDoObjects) {
 					$tagInput = $("<input>").addClass("tags"),
 					$tagLabel = $("<p>").text("Теги: "),
 					$button = $("<button>").text("+");
-					$button.on("click", function (){
+					$(".content").append($("<div>").append($inputLabel).append($input)
+						.append($tagLabel).append($tagInput)
+						.append($button));
+					function butfunc() {
 						var description = $input.val(),
-						tags = $tagInput.val().split(",");
+						tags = $tagInput.val().split(","),
+						newToDo = ({"description":description, "tags":tags});
 						if (description !== "" && description.trim().length > 0) {
 							if ($tagInput.val() !== "" && ($tagInput.val()).trim().length > 0) {
-								toDoObjects.push({"description":description, "tags":tags});
+								$.post("todos", newToDo, function (result) {
+									console.log(result);
+									toDoObjects.push(newToDo);
+								});
 								toDos = toDoObjects.map(function (toDo){
 									return toDo.description;
 								});
@@ -80,26 +87,15 @@ var main = function (toDoObjects) {
 								$tagInput.val("");
 							}
 						}
+					}
+					$button.on("click", function() {
+						butfunc();
 					});
-					$tagInput.on("keypress", function (event) {
-						if (event.keyCode === 13){
-							var description = $input.val(),
-							tags = $tagInput.val().split(",");
-							if (description !== "" && description.trim().length > 0) {
-								if ($tagInput.val() !== "" && ($tagInput.val()).trim().length > 0) {
-									toDoObjects.push({"description":description, "tags":tags});
-									toDos = toDoObjects.map(function (toDo){
-										return toDo.description;
-									});
-									$input.val("");
-									$tagInput.val("");
-								}
-							}
+					$('.tags').on('keypress', function (event) {
+						if (event.keyCode === 13) {
+							butfunc();
 						}
 					});
-					$(".content").append($("<div>").append($inputLabel).append($input)
-						.append($tagLabel).append($tagInput)
-						.append($button));
 				}
 				return false;
 			})
@@ -107,7 +103,7 @@ var main = function (toDoObjects) {
 		$(".tabs a:first-child span").trigger("click");
 	})
 };
-$(document).ready(function () {
+$("document").ready(function () {
 	console.log("document ready");
 	$.getJSON("todos.json", function(toDoObjects) {
 		console.log(toDoObjects);
