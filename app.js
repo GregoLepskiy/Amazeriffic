@@ -66,7 +66,7 @@ var liaWithEditOnClick = function (todo) {
 	return $todoListItem;
 };
 
-var main = function (toDoObjects) {
+var main = function () {
 	"use strict";
 	var tabs;
 	tabs = [];
@@ -188,9 +188,4 @@ var main = function (toDoObjects) {
 		$(".tabs a:first span").trigger("click");
 	});
 };
-$("document").ready(function () {
-	$.getJSON("todos.json", function(toDoObjects) {
-		console.log(toDoObjects);
-		main(toDoObjects);
-	});
-});
+$("document").ready(main);
